@@ -290,7 +290,7 @@ Under the hood, the plugin generates a complete Modal application file tailored 
 <img
   src={require("./architecture-diagram.png").default}
   alt="Architecture diagram showing the mlflow-modal-deploy deployment pipeline: MLflow Model Registry flows into the plugin, which extracts dependencies, generates a Modal app, and uploads artifacts to a Modal Volume. These converge into modal deploy, which creates a serverless container on Modal Cloud with GPU, auto-scaling, and prediction endpoints."
-  style={{ maxWidth: "680px", margin: "0 auto", display: "block" }}
+  style={{ maxWidth: "680px", width: "100%", margin: "0 auto", display: "block" }}
 />
 
 The generated Modal application uses `@modal.fastapi_endpoint` for HTTP serving and `@modal.enter()` for one-time model loading. Several design decisions in the generated code address problems that are easy to miss when building deployment tooling manually:

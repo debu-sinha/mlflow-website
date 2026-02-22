@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="476" viewBox="20 0 1020 476">
+<defs><marker id="arrow-868e96" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#868e96" /></marker><style>text { font-family: "DM Sans", "Segoe UI", system-ui, -apple-system, sans-serif; }</style></defs>
+<text x="40" y="46" font-size="26" fill="#1971c2">TruLens Trace Evaluation Pipeline in MLflow</text>
+<rect x="40" y="80" width="220" height="200" rx="8" stroke="#1971c2" fill="#d0ebff" stroke-width="2" />
+<text x="56" y="104" font-size="14" fill="#1971c2" font-weight="600">MLflow Agent Trace</text>
+<rect x="60" y="120" width="180" height="32" rx="6" stroke="#868e96" fill="#ffffff" stroke-width="1" />
+<text x="150" y="136" font-size="11" fill="#495057" text-anchor="middle" dominant-baseline="central">Span 1: search_flights()</text>
+<rect x="60" y="160" width="180" height="32" rx="6" stroke="#868e96" fill="#ffffff" stroke-width="1" />
+<text x="150" y="176" font-size="11" fill="#495057" text-anchor="middle" dominant-baseline="central">Span 2: check_hotels()</text>
+<rect x="60" y="200" width="180" height="32" rx="6" stroke="#868e96" fill="#ffffff" stroke-width="1" />
+<text x="150" y="216" font-size="11" fill="#495057" text-anchor="middle" dominant-baseline="central">Span 3: book_flight()</text>
+<rect x="60" y="240" width="180" height="24" rx="6" stroke="none" fill="none" />
+<text x="150" y="254" font-size="10" fill="#adb5bd" text-anchor="middle" dominant-baseline="central">... more spans</text>
+<path d="M 268 180 L 348 180" stroke="#868e96" fill="none" stroke-width="2" marker-end="url(#arrow-868e96)" />
+<text x="275" y="168" font-size="11" fill="#868e96">to_json()</text>
+<rect x="356" y="130" width="200" height="100" rx="8" stroke="#2f9e44" fill="#d3f9d8" stroke-width="2" />
+<text x="456" y="172" font-size="18" fill="#2f9e44" text-anchor="middle" dominant-baseline="central" font-weight="600">TruLens</text>
+<text x="456" y="196" font-size="14" fill="#2f9e44" text-anchor="middle" dominant-baseline="central">GPA Provider</text>
+<rect x="376" y="280" width="160" height="48" rx="6" stroke="#e67700" fill="#fff9db" stroke-width="1" />
+<text x="456" y="298" font-size="10" fill="#e67700" text-anchor="middle" dominant-baseline="central">Model Provider</text>
+<text x="456" y="314" font-size="10" fill="#e67700" text-anchor="middle" dominant-baseline="central">(Databricks / OpenAI / LiteLLM)</text>
+<path d="M 456 280 L 456 238" stroke="#868e96" fill="none" stroke-width="1" marker-end="url(#arrow-868e96)" />
+<text x="470" y="262" font-size="10" fill="#868e96">LLM judge</text>
+<path d="M 564 180 L 644 180" stroke="#868e96" fill="none" stroke-width="2" marker-end="url(#arrow-868e96)" />
+<text x="572" y="168" font-size="11" fill="#868e96">evaluate()</text>
+<rect x="652" y="64" width="348" height="280" rx="8" stroke="#dee2e6" fill="#f8f9fa" stroke-width="1" />
+<text x="668" y="86" font-size="13" fill="#868e96" font-weight="600">GPA Scorer Dimensions</text>
+<text x="668" y="112" font-size="12" fill="#e67700" font-weight="600">Goal-Plan</text>
+<rect x="668" y="120" width="152" height="36" rx="6" stroke="#e67700" fill="#fff4e6" stroke-width="1" />
+<text x="744" y="138" font-size="13" fill="#e67700" text-anchor="middle" dominant-baseline="central">PlanQuality</text>
+<rect x="832" y="120" width="152" height="36" rx="6" stroke="#e67700" fill="#fff4e6" stroke-width="1" />
+<text x="908" y="138" font-size="13" fill="#e67700" text-anchor="middle" dominant-baseline="central">ToolSelection</text>
+<text x="668" y="180" font-size="12" fill="#c92a2a" font-weight="600">Plan-Action</text>
+<rect x="668" y="188" width="152" height="36" rx="6" stroke="#c92a2a" fill="#ffe3e3" stroke-width="1" />
+<text x="744" y="206" font-size="13" fill="#c92a2a" text-anchor="middle" dominant-baseline="central">PlanAdherence</text>
+<rect x="832" y="188" width="152" height="36" rx="6" stroke="#c92a2a" fill="#ffe3e3" stroke-width="1" />
+<text x="908" y="206" font-size="13" fill="#c92a2a" text-anchor="middle" dominant-baseline="central">ToolCalling</text>
+<text x="668" y="248" font-size="12" fill="#6741d9" font-weight="600">Holistic</text>
+<rect x="668" y="256" width="152" height="36" rx="6" stroke="#6741d9" fill="#e5dbff" stroke-width="1" />
+<text x="744" y="274" font-size="12" fill="#6741d9" text-anchor="middle" dominant-baseline="central">LogicalConsistency</text>
+<rect x="832" y="256" width="152" height="36" rx="6" stroke="#6741d9" fill="#e5dbff" stroke-width="1" />
+<text x="908" y="274" font-size="12" fill="#6741d9" text-anchor="middle" dominant-baseline="central">ExecutionEfficiency</text>
+<path d="M 822 352 L 822 400" stroke="#868e96" fill="none" stroke-width="2" marker-end="url(#arrow-868e96)" />
+<text x="834" y="378" font-size="11" fill="#868e96">score + rationale</text>
+<rect x="580" y="408" width="420" height="48" rx="8" stroke="#1971c2" fill="#d0ebff" stroke-width="2" />
+<text x="790" y="432" font-size="15" fill="#1971c2" text-anchor="middle" dominant-baseline="central">MLflow Feedback  &#x2192;  Assessment Table  &#x2192;  UI</text>
+</svg>

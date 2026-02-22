@@ -196,7 +196,7 @@ The design decisions specific to this integration were: using `OnFailAction.NOOP
 <img
   src={require("./architecture-diagram.png").default}
   alt="Architecture diagram showing the Guardrails AI scorer pipeline: scorer call receives inputs/outputs, maps them to text, passes through Guard.validate() using the configured validator, then converts the ValidationResult to an MLflow Feedback object with pass/fail value, rationale, and metadata."
-  style={{ maxWidth: "680px", margin: "0 auto", display: "block" }}
+  style={{ maxWidth: "680px", width: "100%", margin: "0 auto", display: "block" }}
 />
 
 When you instantiate a scorer like `ToxicLanguage(threshold=0.7)`, three things happen:
