@@ -8,13 +8,13 @@ thumbnail: /img/blog/mlflow-trulens-evaluation-thumbnail.png
 image: /img/blog/mlflow-trulens-evaluation-thumbnail.png
 ---
 
-MLflow's [third-party scorer framework](https://mlflow.org/docs/latest/genai/eval-monitor/scorers/third-party/) already supports LLM-as-a-judge evaluations from [DeepEval, RAGAS, and Phoenix](/blog/third-party-scorers) across an ecosystem with 18M+ monthly PyPI downloads. Those scorers look at inputs and outputs. Did the response answer the question? Was it grounded in the context? That's enough for chatbots and RAG pipelines, but agents are a different problem. The [TruLens](https://www.trulens.org/) integration changes that by evaluating what happens inside the execution trace.
+MLflow's [third-party scorer framework](https://mlflow.org/docs/latest/genai/eval-monitor/scorers/third-party/) already supports LLM-as-a-judge evaluations from [DeepEval, RAGAS, and Phoenix](/blog/third-party-scorers) across an ecosystem with 18M+ monthly PyPI downloads. Those scorers look at inputs and outputs. Did the response answer the question? Was it grounded in the context? That's enough for chatbots and RAG pipelines, but agents are a different problem. The [TruLens](https://www.trulens.org/) integration I contributed ([PR #19492](https://github.com/mlflow/mlflow/pull/19492)) changes that by evaluating what happens inside the execution trace.
 
 An agent doesn't just produce an answer. It makes a plan, picks tools, executes a multi-step workflow, and adapts when steps fail. A correct final answer can mask a flawed plan, redundant tool calls, or broken reasoning along the way. To catch those problems, you need to evaluate what happened *inside* the execution trace, not just what came out the other end.
 
 {/* truncate */}
 
-I contributed the [TruLens](https://www.trulens.org/) integration to MLflow ([PR #19492](https://github.com/mlflow/mlflow/pull/19492)), adding 10 scorers that bring trace-aware agent evaluation to the scorer framework for the first time. You pass an MLflow trace, and the scorer reads the full span tree (plans, tool calls, intermediate outputs, everything) using the [Agent GPA framework](https://www.snowflake.com/en/engineering-blog/ai-agent-evaluation-gpa-framework/) developed by the TruLens team at Snowflake.
+The integration adds 10 scorers that bring trace-aware agent evaluation to the scorer framework for the first time. You pass an MLflow trace, and the scorer reads the full span tree (plans, tool calls, intermediate outputs, everything) using the [Agent GPA framework](https://www.snowflake.com/en/engineering-blog/ai-agent-evaluation-gpa-framework/) developed by the TruLens team at Snowflake.
 
 ## The Agent GPA Framework
 
