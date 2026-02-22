@@ -1,6 +1,6 @@
 ---
 title: "Deploy MLflow Models to Serverless GPUs with Modal"
-description: A step-by-step guide to deploying MLflow models on Modal's serverless GPU infrastructure using the mlflow-modal-deploy plugin, with auto-scaling and streaming predictions.
+description: Deploy MLflow models to Modal's serverless GPU infrastructure with auto-scaling and streaming predictions.
 slug: mlflow-modal-deploy
 authors: [debu-sinha]
 tags: [genai, deployment, modal, plugins, gpu, serverless]
@@ -8,9 +8,9 @@ thumbnail: /img/blog/mlflow-modal-deploy-thumbnail.png
 image: /img/blog/mlflow-modal-deploy-thumbnail.png
 ---
 
-One of MLflow's strengths is its [plugin architecture](https://mlflow.org/docs/latest/plugins.html) for deployment targets -- the same `get_deploy_client()` API works across [Databricks Model Serving](https://docs.databricks.com/en/machine-learning/model-serving/index.html), SageMaker, Azure ML, and community-contributed targets. Each plugin lets teams deploy to the platform that best fits their workload without changing their MLflow code.
+One of MLflow's strengths -- across its ecosystem of 18M+ monthly PyPI downloads -- is its [plugin architecture](https://mlflow.org/docs/latest/plugins.html) for deployment targets. The same `get_deploy_client()` API works across [Databricks Model Serving](https://docs.databricks.com/en/machine-learning/model-serving/index.html), SageMaker, Azure ML, and community-contributed targets. Each plugin lets teams deploy to the platform that best fits their workload without changing their MLflow code.
 
-The [`mlflow-modal-deploy`](https://pypi.org/project/mlflow-modal-deploy/) plugin adds [Modal](https://modal.com/)'s serverless GPU platform as a deployment target, extending this ecosystem to teams that need scale-to-zero GPU endpoints for specific workloads like bursty inference or rapid prototyping. A single `create_deployment()` call takes any `pyfunc` model from an MLflow experiment to a live, auto-scaling endpoint -- the plugin handles dependency extraction, code generation, and GPU configuration automatically.
+I developed the [`mlflow-modal-deploy`](https://pypi.org/project/mlflow-modal-deploy/) plugin to add [Modal](https://modal.com/)'s serverless GPU platform as a deployment target, extending this ecosystem to teams that need scale-to-zero GPU endpoints for specific workloads like bursty inference or rapid prototyping. A single `create_deployment()` call takes any `pyfunc` model from an MLflow experiment to a live, auto-scaling endpoint -- the plugin handles dependency extraction, code generation, and GPU configuration automatically.
 
 {/* truncate */}
 
@@ -165,7 +165,7 @@ If the model supports `predict_stream` natively (LLMs, chat models, LangChain), 
 
 ## GPU Configuration
 
-Different models have different GPU requirements -- a small classifier fits on a T4, while a 70B parameter LLM needs multiple H100s. The plugin lets you specify GPU requirements declaratively, supporting all GPU types available on Modal from T4 through B200.
+Matching GPU resources to model size directly affects both cost and latency -- over-provisioning wastes compute budget, while under-provisioning causes out-of-memory failures or slow inference. The plugin lets you specify GPU requirements declaratively, supporting all GPU types available on Modal from T4 through B200.
 
 For large models that benefit from multi-GPU parallelism:
 
@@ -190,7 +190,8 @@ config={
 | T4 | 16 GB | Small models, batch inference |
 | L4 | 24 GB | Medium models, real-time inference |
 | L40S | 48 GB | Medium-large models, inference |
-| A10G | 24 GB | Training and inference |
+| A10 | 24 GB | Training and inference |
+| A100 | 40 GB | Large models, general purpose |
 | A100-40GB | 40 GB | Large models, fine-tuning |
 | A100-80GB | 80 GB | Very large models |
 | H100 | 80 GB | LLM serving, high throughput |
@@ -313,7 +314,7 @@ client.update_deployment(
 
 # List all deployments
 for dep in client.list_deployments():
-    print(f"{dep['name']}: {dep.get('endpoint_url', 'N/A')}")
+    print(f"{dep['name']}: {dep.get('state', 'unknown')}")
 
 # Clean up
 client.delete_deployment(name="iris-classifier")
@@ -353,9 +354,9 @@ File issues or contribute at [github.com/debu-sinha/mlflow-modal-deploy](https:/
 
 ## Provenance
 
-I developed `mlflow-modal-deploy` to extend MLflow's deployment plugin ecosystem with a serverless GPU target, complementing existing options like Databricks Model Serving and SageMaker. It is the first community plugin to bring serverless GPU deployment to MLflow's plugin architecture. The plugin covers the full deployment lifecycle -- from model artifact extraction through GPU-accelerated serving with auto-scaling -- across 9 GPU types, 13 releases, and 106 tests.
+I developed `mlflow-modal-deploy` to extend MLflow's deployment plugin ecosystem with a serverless GPU target, complementing existing options like Databricks Model Serving and SageMaker. It is the first community plugin to bring serverless GPU deployment to MLflow's plugin architecture. The plugin covers the full deployment lifecycle -- from model artifact extraction through GPU-accelerated serving with auto-scaling -- across 10 GPU types, 13 releases, and 106 tests.
 
-Technical review was provided by the Modal team during development. The plugin is listed in MLflow's official [Community Plugins](https://mlflow.org/docs/latest/plugins.html) documentation -- making it available to MLflow's ecosystem of 18M+ monthly PyPI downloads -- and is published on [PyPI](https://pypi.org/project/mlflow-modal-deploy/) and validated against MLflow 3.x and Modal 1.0.
+Technical review was provided by the Modal team during development. The plugin is listed in MLflow's official [Community Plugins](https://mlflow.org/docs/latest/plugins.html) documentation and is published on [PyPI](https://pypi.org/project/mlflow-modal-deploy/) and validated against MLflow 3.x and Modal 1.0.
 
 Related artifacts:
 - [Upstream MLflow documentation PR](https://github.com/mlflow/mlflow/pull/20032) (merged, reviewed by MLflow maintainers)
