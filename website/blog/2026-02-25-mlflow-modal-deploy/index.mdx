@@ -251,7 +251,7 @@ deployment = client.create_deployment(
 )
 ```
 
-This is particularly effective for GPU models where the marginal cost of processing additional inputs in a batch is low compared to the fixed cost of a GPU kernel launch.
+Batching pays off most for GPU models -- the marginal cost of extra inputs in a batch is small compared to the fixed overhead of each kernel launch.
 
 ## Automatic Dependency Management
 
