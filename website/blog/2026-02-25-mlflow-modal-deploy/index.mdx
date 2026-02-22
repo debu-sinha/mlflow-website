@@ -8,9 +8,9 @@ thumbnail: /img/blog/mlflow-modal-deploy-thumbnail.png
 image: /img/blog/mlflow-modal-deploy-thumbnail.png
 ---
 
-One of MLflow's strengths -- across its ecosystem of 18M+ monthly PyPI downloads -- is its [plugin architecture](https://mlflow.org/docs/latest/plugins.html) for deployment targets. The same `get_deploy_client()` API works across [Databricks Model Serving](https://docs.databricks.com/en/machine-learning/model-serving/index.html), SageMaker, Azure ML, and community-contributed targets. Each plugin lets teams deploy to the platform that best fits their workload without changing their MLflow code.
+One of MLflow's strengths, across its ecosystem of 18M+ monthly PyPI downloads, is its [plugin architecture](https://mlflow.org/docs/latest/plugins.html) for deployment targets. The same `get_deploy_client()` API works across [Databricks Model Serving](https://docs.databricks.com/en/machine-learning/model-serving/index.html), SageMaker, Azure ML, and community-contributed targets. Each plugin lets teams deploy to the platform that best fits their workload without changing their MLflow code.
 
-I developed the [`mlflow-modal-deploy`](https://pypi.org/project/mlflow-modal-deploy/) plugin to add [Modal](https://modal.com/)'s serverless GPU platform as a deployment target, extending this ecosystem to teams that need scale-to-zero GPU endpoints for specific workloads like bursty inference or rapid prototyping. A single `create_deployment()` call takes any `pyfunc` model from an MLflow experiment to a live, auto-scaling endpoint -- the plugin handles dependency extraction, code generation, and GPU configuration automatically.
+I developed the [`mlflow-modal-deploy`](https://pypi.org/project/mlflow-modal-deploy/) plugin to add [Modal](https://modal.com/)'s serverless GPU platform as a deployment target, extending this ecosystem to teams that need scale-to-zero GPU endpoints for specific workloads like bursty inference or rapid prototyping. A single `create_deployment()` call takes any `pyfunc` model from an MLflow experiment to a live, auto-scaling endpoint. The plugin handles dependency extraction, code generation, and GPU configuration automatically.
 
 {/* truncate */}
 
@@ -18,7 +18,7 @@ I developed the [`mlflow-modal-deploy`](https://pypi.org/project/mlflow-modal-de
 
 For production ML serving, [Databricks Model Serving](https://docs.databricks.com/en/machine-learning/model-serving/index.html) provides fully managed endpoints with built-in governance, monitoring, and enterprise-grade reliability. It's the recommended path for production workloads on the Databricks platform.
 
-But ML teams often have workloads that sit outside the production serving path -- quick prototyping, one-off batch inference experiments, demos for stakeholders, or exploratory work with new model architectures where the overhead of a full production setup isn't justified. For these use cases, a serverless GPU target that scales to zero when idle and requires no infrastructure setup can be a useful complement.
+But ML teams often have workloads that sit outside the production serving path: quick prototyping, one-off batch inference experiments, demos for stakeholders, or exploratory work with new model architectures where the overhead of a full production setup isn't justified. For these use cases, a serverless GPU target that scales to zero when idle and requires no infrastructure setup can be a useful complement.
 
 The `mlflow-modal-deploy` plugin adds Modal as one such target. It registers through MLflow's standard plugin interface, so teams can use `get_deploy_client("modal")` alongside their existing deployment targets without changing their workflow.
 
@@ -80,7 +80,7 @@ Behind that single call, the plugin handles the five steps that would otherwise 
 4. Generates a complete Modal application with the correct GPU, scaling, and serving configuration
 5. Uploads model files to a Modal Volume and deploys the application
 
-Each of these steps typically involves custom code -- parsing conda environments, generating Dockerfiles, configuring HTTP servers. The plugin handles all of it from the information MLflow already stores with every logged model.
+Each of these steps typically involves custom code: parsing conda environments, generating Dockerfiles, configuring HTTP servers. The plugin handles all of it from the information MLflow already stores with every logged model.
 
 ### Make Predictions
 
@@ -115,7 +115,7 @@ mlflow deployments delete -t modal --name iris-classifier
 
 ## GPU Deployment: Text Generation with Streaming
 
-The iris example shows the basic workflow, but the plugin is designed for workloads that actually need GPUs -- transformer models, LLMs, and large-scale inference. Here's a more realistic example: deploying a text generation model with GPU acceleration, auto-scaling, and streaming predictions.
+The iris example shows the basic workflow, but the plugin is designed for workloads that actually need GPUs: transformer models, LLMs, and large-scale inference. Here's a more realistic example: deploying a text generation model with GPU acceleration, auto-scaling, and streaming predictions.
 
 ```python
 import mlflow
@@ -161,11 +161,11 @@ for chunk in client.predict_stream(
     print(chunk, end="", flush=True)
 ```
 
-If the model supports `predict_stream` natively (LLMs, chat models, LangChain), chunks arrive incrementally. For models that don't (sklearn, XGBoost), the endpoint falls back to returning the full prediction as a single SSE chunk -- so the same `predict_stream()` API works for any model type.
+If the model supports `predict_stream` natively (LLMs, chat models, LangChain), chunks arrive incrementally. For models that don't (sklearn, XGBoost), the endpoint falls back to returning the full prediction as a single SSE chunk, so the same `predict_stream()` API works for any model type.
 
 ## GPU Configuration
 
-Matching GPU resources to model size directly affects both cost and latency -- over-provisioning wastes compute budget, while under-provisioning causes out-of-memory failures or slow inference. The plugin lets you specify GPU requirements declaratively, supporting all GPU types available on Modal from T4 through B200.
+Matching GPU resources to model size directly affects both cost and latency. Over-provisioning wastes compute budget, while under-provisioning causes out-of-memory failures or slow inference. The plugin lets you specify GPU requirements declaratively, supporting all GPU types available on Modal from T4 through B200.
 
 For large models that benefit from multi-GPU parallelism:
 
@@ -185,6 +185,8 @@ config={
 }
 ```
 
+The plugin supports all GPU types available on Modal:
+
 | GPU | VRAM | Typical Use Case |
 |-----|------|-----------------|
 | T4 | 16 GB | Small models, batch inference |
@@ -200,7 +202,7 @@ config={
 
 ## Auto-Scaling Configuration
 
-For workloads with variable traffic -- demos, batch experiments, or intermittent inference -- fine-grained scaling control helps manage costs. The plugin exposes Modal's auto-scaling API, so you can tune cost and latency trade-offs per deployment:
+For workloads with variable traffic (demos, batch experiments, intermittent inference), fine-grained scaling control helps manage costs. The plugin exposes Modal's auto-scaling API, so you can tune cost and latency trade-offs per deployment:
 
 ```python
 deployment = client.create_deployment(
@@ -236,7 +238,7 @@ The endpoint can also be called directly via `curl`:
 
 ## Dynamic Batching
 
-GPU utilization drops sharply when processing one request at a time -- the fixed cost of a kernel launch dominates, and most of the GPU's parallel compute capacity sits idle. For throughput-sensitive workloads, the plugin supports Modal's dynamic batching, which automatically groups incoming requests into batches before passing them to the model:
+GPU utilization drops sharply when processing one request at a time. The fixed cost of a kernel launch dominates, and most of the GPU's parallel compute capacity sits idle. For throughput-sensitive workloads, the plugin supports Modal's dynamic batching, which automatically groups incoming requests into batches before passing them to the model:
 
 ```python
 deployment = client.create_deployment(
@@ -251,11 +253,11 @@ deployment = client.create_deployment(
 )
 ```
 
-Batching pays off most for GPU models -- the marginal cost of extra inputs in a batch is small compared to the fixed overhead of each kernel launch.
+Batching pays off most for GPU models because the marginal cost of extra inputs in a batch is small compared to the fixed overhead of each kernel launch.
 
 ## Automatic Dependency Management
 
-Dependency mismatches are one of the most common causes of deployment failures -- a model trained with `transformers==4.38.0` breaks silently when served with `4.40.0`. MLflow already captures the exact environment when you log a model; the plugin reads that metadata and reproduces it in the deployment container automatically:
+Dependency mismatches are one of the most common causes of deployment failures. A model trained with `transformers==4.38.0` breaks silently when served with `4.40.0`. MLflow already captures the exact environment when you log a model, and the plugin reads that metadata to reproduce it in the deployment container automatically:
 
 - **`requirements.txt`** (preferred): Parsed directly from the MLflow model artifacts
 - **`conda.yaml`** (fallback): Pip dependencies extracted from the conda environment specification
@@ -295,10 +297,10 @@ Under the hood, the plugin generates a complete Modal application file tailored 
 
 The generated Modal application uses `@modal.fastapi_endpoint` for HTTP serving and `@modal.enter()` for one-time model loading. Several design decisions in the generated code address problems that are easy to miss when building deployment tooling manually:
 
-- **Volume-based model storage** separates model artifacts from the runtime image. This means redeploying with a new model version only updates the volume contents (seconds), not the entire container image (minutes) -- a critical difference for teams iterating quickly on model versions.
+- **Volume-based model storage** separates model artifacts from the runtime image. Redeploying with a new model version only updates the volume contents (seconds), not the entire container image (minutes). That difference matters for teams iterating quickly on model versions.
 - **`uv_pip_install`** for dependency installation, following the Modal 1.0 best practice. This is significantly faster than `pip install` for large dependency trees common in ML projects.
-- **Security-validated deployment names** prevent code injection in the generated Python file. Since the plugin generates executable Python code from user inputs, every string that enters the generated code is validated against a strict regex and escaped -- without this, a malicious deployment name could inject arbitrary code.
-- **Graceful streaming fallback** ensures `predict_stream` works for all model types. Models that support native streaming (LLMs, chat models) stream incrementally; models that don't (sklearn, XGBoost) return the full prediction as a single SSE event. The caller doesn't need to know which type it's talking to.
+- **Security-validated deployment names** prevent code injection in the generated Python file. Since the plugin generates executable Python code from user inputs, every string that enters the generated code is validated against a strict regex and escaped. Without this, a malicious deployment name could inject arbitrary code.
+- **Graceful streaming fallback** ensures `predict_stream` works for all model types. Models that support native streaming (LLMs, chat models) stream incrementally. Models that don't (sklearn, XGBoost) return the full prediction as a single SSE event. The caller doesn't need to know which type it's talking to.
 
 ## Managing Deployments
 
