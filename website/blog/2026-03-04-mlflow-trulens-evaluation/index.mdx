@@ -30,6 +30,8 @@ On the [TRAIL/GAIA benchmark](https://arxiv.org/abs/2510.08847), GPA judges iden
 
 ## Agent Trace Scorers
 
+The integration I contributed brings GPA evaluation to MLflow's scorer API, making it accessible through the same `mlflow.genai.evaluate()` interface used for all other scorers.
+
 The integration exposes six scorers, one for each GPA dimension:
 
 ```python
@@ -218,9 +220,9 @@ scorer = PlanAdherence(model="openai:/gpt-4o")
 
 I contributed the TruLens integration ([PR #19492](https://github.com/mlflow/mlflow/pull/19492)) to MLflow's open-source third-party scorer framework, adding 10 scorers: 4 RAG metrics and 6 agent trace evaluators based on the [Agent GPA framework](https://arxiv.org/abs/2510.08847). The integration went through four review rounds with Samraj Moorjani (Software Engineer at Databricks, MLflow maintainer), with final approval from Avesh Singh (Software Engineer at Databricks). It follows the scorer pattern Moorjani established in the DeepEval and RAGAS integrations and extends it to agent trace evaluation, a category that requires reading the full span tree rather than just inputs and outputs.
 
-The integration was developed in collaboration with [Josh Reini](https://www.snowflake.com/en/engineering-blog/trace-aware-agent-evaluation-mlflow/) (TruLens maintainer, Snowflake), who provided review and validation of scorer semantics and trace-aware evaluation behavior. Josh's companion blog on the Snowflake Engineering Blog covers the Agent GPA research and TRAIL benchmark results in depth. A cross-project [documentation PR](https://github.com/truera/trulens/pull/2344) was also merged into the TruLens repository.
+[Josh Reini](https://www.snowflake.com/en/engineering-blog/trace-aware-agent-evaluation-mlflow/) (TruLens maintainer, Snowflake) reviewed the integration's scorer semantics and validated the trace-aware evaluation behavior. Reini published a [companion post on the Snowflake Engineering Blog](https://www.snowflake.com/en/engineering-blog/trace-aware-agent-evaluation-mlflow/) covering the Agent GPA research and TRAIL benchmark results in depth. A cross-project [documentation PR](https://github.com/truera/trulens/pull/2344) was also merged into the TruLens repository.
 
 Related artifacts:
 - [Upstream MLflow TruLens PR #19492](https://github.com/mlflow/mlflow/pull/19492) (merged)
 - [TruLens documentation PR #2344](https://github.com/truera/trulens/pull/2344) (merged, cross-project)
-- [Introducing DeepEval, RAGAS, and Phoenix Judges in MLflow](/blog/third-party-scorers) (companion blog, co-authored)
+- [Introducing DeepEval, RAGAS, and Phoenix Judges in MLflow](/blog/third-party-scorers) (companion blog)
