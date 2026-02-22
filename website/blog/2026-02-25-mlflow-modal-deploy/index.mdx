@@ -18,7 +18,7 @@ I developed [`mlflow-modal-deploy`](https://pypi.org/project/mlflow-modal-deploy
 
 For production ML serving, [Databricks Model Serving](https://docs.databricks.com/en/machine-learning/model-serving/index.html) provides fully managed endpoints with built-in governance, monitoring, and enterprise-grade reliability. It's the recommended path for production workloads on the Databricks platform.
 
-But ML teams often have workloads that sit outside the production serving path: quick prototyping, one-off batch inference experiments, demos for stakeholders, or exploratory work with new model architectures where the overhead of a full production setup isn't justified. For these use cases, a serverless GPU target that scales to zero when idle and requires no infrastructure setup can be a useful complement.
+But ML teams often have workloads that sit outside the production serving path: quick prototyping, one-off batch inference experiments, demos for stakeholders, or exploratory work with new model architectures where the overhead of a full production setup isn't justified. Before this plugin, deploying an MLflow model to a GPU endpoint meant writing a custom Dockerfile, configuring GPU drivers, building an HTTP server, and wiring auto-scaling rules per model. There was no way to use MLflow's standard `get_deploy_client()` API to target serverless GPUs. For these use cases, a serverless GPU target that scales to zero when idle and requires no infrastructure setup can be a useful complement.
 
 The `mlflow-modal-deploy` plugin adds Modal as one such target. It registers through MLflow's standard plugin interface, so teams can use `get_deploy_client("modal")` alongside their existing deployment targets without changing their workflow.
 
@@ -358,7 +358,7 @@ File issues or contribute at [github.com/debu-sinha/mlflow-modal-deploy](https:/
 
 I developed `mlflow-modal-deploy` to extend MLflow's deployment plugin ecosystem with a serverless GPU target, complementing existing options like Databricks Model Serving and SageMaker. It is the first community plugin to bring serverless GPU deployment to MLflow's plugin architecture. The plugin covers the full deployment lifecycle -- from model artifact extraction through GPU-accelerated serving with auto-scaling -- across 10 GPU types, 14 releases, 106 tests, and nearly 5,000 PyPI downloads.
 
-Technical review was provided by the Modal team during development. The plugin is listed in MLflow's official [Community Plugins](https://mlflow.org/docs/latest/plugins.html) documentation and is published on [PyPI](https://pypi.org/project/mlflow-modal-deploy/) and validated against MLflow 3.x and Modal 1.0.
+Technical review was provided by the Modal team during development. The plugin is listed in MLflow's official [Community Plugins](https://mlflow.org/docs/latest/plugins.html#community-plugins) documentation and is published on [PyPI](https://pypi.org/project/mlflow-modal-deploy/) and validated against MLflow 3.x and Modal 1.0.
 
 Related artifacts:
 - [Upstream MLflow documentation PR](https://github.com/mlflow/mlflow/pull/20032) (merged, reviewed by MLflow maintainers)

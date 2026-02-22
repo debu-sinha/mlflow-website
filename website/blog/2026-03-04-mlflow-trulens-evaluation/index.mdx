@@ -116,7 +116,7 @@ Results land in the MLflow experiment alongside any other evaluation results. Sa
 
 ## RAG Scorers
 
-TruLens also provides four RAG evaluation scorers. These follow the same pattern as the existing [DeepEval, RAGAS, and Phoenix judges](/blog/third-party-scorers). They evaluate inputs and outputs rather than traces:
+The integration also includes four RAG evaluation scorers. These follow the same pattern as the existing [DeepEval, RAGAS, and Phoenix judges](/blog/third-party-scorers). They evaluate inputs and outputs rather than traces:
 
 ```python
 from mlflow.genai.scorers.trulens import Groundedness, ContextRelevance
@@ -157,7 +157,7 @@ For `"databricks"`, the integration uses MLflow's managed judge adapter. For eve
 
 ## Combining Trace and Output Evaluation
 
-Where this gets interesting is mixing evaluation types in one call. Run agent trace scorers alongside RAG scorers and scorers from other frameworks:
+With both trace-aware agent scorers and traditional input/output scorers in the same framework, MLflow can now evaluate agent behavior and output quality in a single API call. Where this gets interesting is mixing evaluation types in one call. Run agent trace scorers alongside RAG scorers and scorers from other frameworks:
 
 ```python
 import mlflow
