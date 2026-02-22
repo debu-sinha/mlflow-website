@@ -214,7 +214,7 @@ When the scorer is called, the conversion pipeline handles several details:
 - **Feedback conversion**: The result is mapped to an MLflow `Feedback` object with `CategoricalRating.YES` or `NO`, a rationale extracted from validation summaries, and an `AssessmentSource` with `source_type=CODE` (not `LLM_JUDGE`) to distinguish deterministic checks from LLM evaluations.
 - **Error isolation**: If validation throws an exception, it's captured in `Feedback(error=e)` rather than propagated -- so one failing scorer doesn't break a batch evaluation of thousands of rows.
 
-The `source_type=CODE` distinction matters for downstream analysis. When reviewing evaluation results, teams can immediately tell which assessments are deterministic (reproducible, auditable) and which came from an LLM judge (probabilistic, may vary between runs). This is especially important for compliance-sensitive applications where auditors need to know exactly how each safety check was performed.
+The `source_type=CODE` distinction matters for downstream analysis. When reviewing evaluation results, teams can immediately tell which assessments are deterministic (reproducible, auditable) and which came from an LLM judge (probabilistic, may vary between runs). For compliance-sensitive applications, that distinction is the difference between "we ran a deterministic check" and "an LLM thought it looked okay" -- auditors care about that.
 
 ## Configuration
 
