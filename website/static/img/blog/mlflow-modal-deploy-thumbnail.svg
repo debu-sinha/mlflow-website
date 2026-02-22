@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1286" viewBox="0 0 1760 1286">
+<defs>
+  <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" style="stop-color:#0d1b2a" />
+    <stop offset="100%" style="stop-color:#1b2838" />
+  </linearGradient>
+  <style>text { font-family: "Segoe UI", system-ui, -apple-system, sans-serif; }</style>
+</defs>
+<rect width="1760" height="1286" fill="url(#bg)" />
+
+<!-- MLflow text logo -->
+<text x="120" y="280" font-size="120" fill="#43b0f1" font-weight="300" letter-spacing="-2">ml</text>
+<text x="310" y="280" font-size="120" fill="#43b0f1" font-weight="700" letter-spacing="-2" font-style="italic">flow</text>
+
+<!-- Plus sign -->
+<text x="680" y="280" font-size="100" fill="#ffffff" font-weight="300">+</text>
+
+<!-- Modal text -->
+<text x="800" y="280" font-size="110" fill="#09AF58" font-weight="700" letter-spacing="-1">Modal</text>
+
+<!-- Subtitle -->
+<text x="120" y="380" font-size="48" fill="#94a3b8">Deploy MLflow Models to Serverless GPUs</text>
+
+<!-- Deployment pipeline visual -->
+<!-- Step 1: MLflow Model -->
+<rect x="120" y="480" width="360" height="100" rx="12" stroke="#43b0f1" fill="#43b0f1" fill-opacity="0.12" stroke-width="2" />
+<text x="150" y="520" font-size="26" fill="#43b0f1" font-weight="600">MLflow Model</text>
+<text x="150" y="556" font-size="16" fill="#64748b">runs:/{run_id}/model</text>
+
+<!-- Arrow 1 -->
+<text x="510" y="540" font-size="40" fill="#475569">&#8594;</text>
+
+<!-- Step 2: Plugin -->
+<rect x="560" y="480" width="440" height="100" rx="12" stroke="#5c7cfa" fill="#5c7cfa" fill-opacity="0.12" stroke-width="2" />
+<text x="590" y="520" font-size="26" fill="#818cf8" font-weight="600">mlflow-modal-deploy</text>
+<text x="590" y="556" font-size="16" fill="#64748b">create_deployment()</text>
+
+<!-- Arrow 2 -->
+<text x="1030" y="540" font-size="40" fill="#475569">&#8594;</text>
+
+<!-- Step 3: Modal Cloud -->
+<rect x="1080" y="480" width="560" height="100" rx="12" stroke="#09AF58" fill="#09AF58" fill-opacity="0.12" stroke-width="2" />
+<text x="1110" y="520" font-size="26" fill="#34d399" font-weight="600">Modal Cloud</text>
+<text x="1110" y="556" font-size="16" fill="#64748b">Serverless GPU endpoint</text>
+
+<!-- Right side: Generated app visualization -->
+<rect x="700" y="640" width="940" height="380" rx="16" fill="#ffffff" fill-opacity="0.05" stroke="#334155" stroke-width="1" />
+
+<!-- Generated app header -->
+<rect x="720" y="660" width="900" height="44" rx="8" fill="#1e293b" />
+<text x="740" y="686" font-size="18" fill="#94a3b8">Generated Modal Application</text>
+<text x="1200" y="686" font-size="16" fill="#09AF58">app.py</text>
+
+<!-- Config rows -->
+<rect x="720" y="716" width="900" height="40" rx="0" fill="#0f172a" fill-opacity="0.5" />
+<text x="740" y="740" font-size="15" fill="#64748b">gpu</text>
+<text x="900" y="740" font-size="15" fill="#e2e8f0">"T4" | "A10G" | "A100" | "H100" | "H200"</text>
+
+<rect x="720" y="760" width="900" height="40" rx="0" fill="#0f172a" fill-opacity="0.3" />
+<text x="740" y="784" font-size="15" fill="#64748b">min_containers</text>
+<text x="900" y="784" font-size="15" fill="#34d399">0</text>
+<text x="940" y="784" font-size="14" fill="#475569">scale-to-zero</text>
+
+<rect x="720" y="804" width="900" height="40" rx="0" fill="#0f172a" fill-opacity="0.5" />
+<text x="740" y="828" font-size="15" fill="#64748b">max_containers</text>
+<text x="900" y="828" font-size="15" fill="#e2e8f0">10</text>
+
+<rect x="720" y="848" width="900" height="40" rx="0" fill="#0f172a" fill-opacity="0.3" />
+<text x="740" y="872" font-size="15" fill="#64748b">endpoints</text>
+<text x="900" y="872" font-size="15" fill="#e2e8f0">/predict + /predict_stream</text>
+
+<rect x="720" y="892" width="900" height="40" rx="0" fill="#0f172a" fill-opacity="0.5" />
+<text x="740" y="916" font-size="15" fill="#64748b">dependencies</text>
+<text x="900" y="916" font-size="15" fill="#fbbf24">auto-extracted from MLflow artifact</text>
+
+<!-- Model volume row -->
+<rect x="720" y="936" width="900" height="40" rx="0" fill="#0f172a" fill-opacity="0.3" />
+<text x="740" y="960" font-size="15" fill="#64748b">storage</text>
+<text x="900" y="960" font-size="15" fill="#e2e8f0">Modal Volume (fast redeployment)</text>
+
+<!-- Left side: Key features -->
+<rect x="120" y="640" width="460" height="100" rx="12" stroke="#09AF58" fill="#09AF58" fill-opacity="0.12" stroke-width="2" />
+<text x="150" y="680" font-size="26" fill="#34d399" font-weight="600">Auto-Scaling</text>
+<text x="150" y="710" font-size="16" fill="#64748b">0 to N containers, pay only when running</text>
+
+<rect x="120" y="760" width="460" height="100" rx="12" stroke="#818cf8" fill="#818cf8" fill-opacity="0.12" stroke-width="2" />
+<text x="150" y="800" font-size="26" fill="#818cf8" font-weight="600">GPU Selection</text>
+<text x="150" y="830" font-size="16" fill="#64748b">T4 through H200, multi-GPU, fallback lists</text>
+
+<rect x="120" y="880" width="460" height="100" rx="12" stroke="#fbbf24" fill="#fbbf24" fill-opacity="0.12" stroke-width="2" />
+<text x="150" y="920" font-size="26" fill="#fbbf24" font-weight="600">Streaming</text>
+<text x="150" y="950" font-size="16" fill="#64748b">predict() and predict_stream() endpoints</text>
+
+<!-- Bottom badges -->
+<rect x="120" y="1080" width="220" height="52" rx="8" fill="#09AF58" fill-opacity="0.15" stroke="#09AF58" stroke-width="1" />
+<text x="230" y="1110" font-size="18" fill="#34d399" text-anchor="middle" dominant-baseline="central">9 GPU Types</text>
+
+<rect x="370" y="1080" width="240" height="52" rx="8" fill="#818cf8" fill-opacity="0.15" stroke="#818cf8" stroke-width="1" />
+<text x="490" y="1110" font-size="18" fill="#818cf8" text-anchor="middle" dominant-baseline="central">Scale to Zero</text>
+
+<rect x="640" y="1080" width="260" height="52" rx="8" fill="#fbbf24" fill-opacity="0.15" stroke="#fbbf24" stroke-width="1" />
+<text x="770" y="1110" font-size="18" fill="#fbbf24" text-anchor="middle" dominant-baseline="central">Single API Call</text>
+
+<rect x="930" y="1080" width="300" height="52" rx="8" fill="#43b0f1" fill-opacity="0.15" stroke="#43b0f1" stroke-width="1" />
+<text x="1080" y="1110" font-size="18" fill="#43b0f1" text-anchor="middle" dominant-baseline="central">MLflow Plugin System</text>
+
+<rect x="1260" y="1080" width="220" height="52" rx="8" fill="#34d399" fill-opacity="0.15" stroke="#34d399" stroke-width="1" />
+<text x="1370" y="1110" font-size="18" fill="#34d399" text-anchor="middle" dominant-baseline="central">13 Releases</text>
+</svg>
