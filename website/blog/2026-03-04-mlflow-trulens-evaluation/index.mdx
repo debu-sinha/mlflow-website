@@ -8,7 +8,7 @@ thumbnail: /img/blog/mlflow-trulens-evaluation-thumbnail.png
 image: /img/blog/mlflow-trulens-evaluation-thumbnail.png
 ---
 
-MLflow's [third-party scorer framework](https://mlflow.org/docs/latest/genai/eval-monitor/scorers/third-party/) already supports LLM-as-a-judge evaluations from [DeepEval, RAGAS, and Phoenix](/blog/third-party-scorers) across an ecosystem with 18M+ monthly PyPI downloads. Those scorers look at inputs and outputs. Did the response answer the question? Was it grounded in the context? That's enough for chatbots and RAG pipelines, but agents are a different problem. The [TruLens](https://www.trulens.org/) integration I contributed ([PR #19492](https://github.com/mlflow/mlflow/pull/19492)) changes that by evaluating what happens inside the execution trace.
+MLflow's [third-party scorer framework](https://mlflow.org/docs/latest/genai/eval-monitor/scorers/third-party/) already supports LLM-as-a-judge evaluations from [DeepEval, RAGAS, and Phoenix](/blog/third-party-scorers) across an ecosystem with 18M+ monthly PyPI downloads. Those scorers look at inputs and outputs. Did the response answer the question? Was it grounded in the context? That's enough for chatbots and RAG pipelines, but agents are a different problem. The [TruLens](https://www.trulens.org/) integration ([PR #19492](https://github.com/mlflow/mlflow/pull/19492)) changes that by evaluating what happens inside the execution trace.
 
 An agent doesn't just produce an answer. It makes a plan, picks tools, executes a multi-step workflow, and adapts when steps fail. A correct final answer can mask a flawed plan, redundant tool calls, or broken reasoning along the way. To catch those problems, you need to evaluate what happened *inside* the execution trace, not just what came out the other end.
 
@@ -30,7 +30,7 @@ On the [TRAIL/GAIA benchmark](https://arxiv.org/abs/2510.08847), GPA judges iden
 
 ## Agent Trace Scorers
 
-The integration I contributed brings GPA evaluation to MLflow's scorer API, making it accessible through the same `mlflow.genai.evaluate()` interface used for all other scorers.
+The integration brings GPA evaluation to MLflow's scorer API, making it accessible through the same `mlflow.genai.evaluate()` interface used for all other scorers.
 
 The integration exposes six scorers, one for each GPA dimension:
 
@@ -139,7 +139,7 @@ The difference from the agent trace scorers is that RAG scorers work with inputs
 
 ## Provider Routing
 
-Agent trace evaluation is expensive -- each scorer sends the full span tree to an LLM judge, and you're typically running multiple scorers per trace. Being locked into a single provider means you can't optimize cost by running cheaper scorers on a faster model or route sensitive traces through a private endpoint. TruLens scorers support the same model URI format as Phoenix and the other third-party integrations, so you pick the right provider for each scorer:
+Agent trace evaluation is expensive. Each scorer sends the full span tree to an LLM judge, and you're typically running multiple scorers per trace. Being locked into a single provider means you can't optimize cost by running cheaper scorers on a faster model or route sensitive traces through a private endpoint. TruLens scorers support the same model URI format as Phoenix and the other third-party integrations, so you pick the right provider for each scorer:
 
 ```python
 # Databricks managed judge (built-in, no API key needed)
