@@ -56,24 +56,24 @@ The integration provides six validators (three for safety, two for privacy, one 
 
 ### Safety
 
-| Scorer | What It Detects | How It Works |
+| Scorer | What it detects | How it works |
 |--------|----------------|--------------|
-| `ToxicLanguage` | Toxic, offensive, or harmful content | NLP classification model |
-| `NSFWText` | Adult or explicit content | Content classification model |
-| `DetectJailbreak` | Prompt injection and jailbreak attempts | BERT-based classifier |
+| `ToxicLanguage` | Toxic, offensive, or harmful content | NLP classification model (no LLM call) |
+| `NSFWText` | Adult or explicit content | Content classification model (no LLM call) |
+| `DetectJailbreak` | Prompt injection and jailbreak attempts | BERT-based classifier trained on attack patterns |
 
 ### Privacy
 
-| Scorer | What It Detects | How It Works |
+| Scorer | What it detects | How it works |
 |--------|----------------|--------------|
-| `DetectPII` | Email addresses, phone numbers, names, locations | Microsoft Presidio NER |
-| `SecretsPresent` | API keys, tokens, passwords, credentials | Regex pattern matching |
+| `DetectPII` | Email addresses, phone numbers, names, locations | Microsoft Presidio named entity recognition |
+| `SecretsPresent` | API keys, tokens, passwords, credentials | Regex pattern matching against known secret formats |
 
 ### Quality
 
-| Scorer | What It Detects | How It Works |
+| Scorer | What it detects | How it works |
 |--------|----------------|--------------|
-| `GibberishText` | Incoherent or nonsensical output | Language model coherence check |
+| `GibberishText` | Incoherent or nonsensical output | Language model coherence check (local, no API) |
 
 This breadth matters because safety failures are rarely one-dimensional. A chatbot might pass toxicity checks but leak PII in the same response. A model might resist jailbreaks but expose API keys in its code examples. Covering all six categories in a single evaluation run catches these multi-vector failures without requiring separate tooling for each.
 
@@ -196,7 +196,7 @@ The design decisions specific to this integration were: using `OnFailAction.NOOP
 <img
   src={require("./architecture-diagram.png").default}
   alt="Architecture diagram showing the Guardrails AI scorer pipeline: scorer call receives inputs/outputs, maps them to text, passes through Guard.validate() using the configured validator, then converts the ValidationResult to an MLflow Feedback object with pass/fail value, rationale, and metadata."
-  style={{ maxWidth: "680px", width: "100%", margin: "0 auto", display: "block" }}
+  style={{ width: "100%", margin: "0 auto", display: "block" }}
 />
 
 When you instantiate a scorer like `ToxicLanguage(threshold=0.7)`, three things happen:
