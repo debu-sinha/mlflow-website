@@ -266,8 +266,8 @@ The full deployment lifecycle is supported through both Python and CLI:
 ```python
 # Update an existing deployment with a new model version
 client.update_deployment(
-    name="iris-classifier",
-    model_uri="models:/IrisClassifier/1",
+    name="text-generator",
+    model_uri=f"runs:/{run_id}/text-generator",
     config={"gpu": "L4"},  # Upgrade GPU
 )
 
@@ -276,7 +276,7 @@ for dep in client.list_deployments():
     print(f"{dep['name']}: {dep.get('state', 'unknown')}")
 
 # Clean up
-client.delete_deployment(name="iris-classifier")
+client.delete_deployment(name="text-generator")
 ```
 
 Workspace targeting is supported for teams using multiple Modal environments:
