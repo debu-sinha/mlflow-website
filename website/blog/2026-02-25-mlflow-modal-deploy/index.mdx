@@ -181,7 +181,7 @@ Setting `min_containers: 0` (the default) enables true scale-to-zero: no running
 
 <img
   src={require("./modal-dashboard.png").default}
-  alt="Modal dashboard showing the iris-classifier deployment with both predict and predict_stream endpoints, container scaling graph, and function call logs with 200 status responses."
+  alt="Modal dashboard showing the text-generator deployment with MLflowModel class on T4 GPU, function call results graph, and function call logs for both predict and predict_stream endpoints with 200 status responses."
   width="100%"
 />
 
@@ -189,7 +189,7 @@ The endpoint can also be called directly via `curl`:
 
 <img
   src={require("./terminal-prediction.png").default}
-  alt="Terminal showing a curl request to the Modal prediction endpoint returning predictions [0, 2] for two iris samples."
+  alt="Terminal showing a curl request to the text-generator Modal endpoint with a text prompt, returning generated text predictions."
   width="100%"
 />
 
